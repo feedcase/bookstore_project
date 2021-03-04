@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bookstore{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto font-weight-normal">Bookstore</a>
+            <nav class="my-2 me-md-0 me-md-3">
+                <a class="p-2 text-dark" href="{% url 'about' %}">About</a>
+                {% if user.is_authenticated %}
+                <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
+                {% else %}
+                <a class="p-2 text-dark" href="{% url 'account_login' %}">Log In</a>
+                <a class="btn btn-outline-primary" href="{% url 'account_signup' %}">Sign Up</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+<!-- JS -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
