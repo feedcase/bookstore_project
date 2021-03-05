@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'books.apps.BooksConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
@@ -178,3 +179,5 @@ STATICFILES_FINDERS = [
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STRIPE_TEST_PUBLISHABLE_KEY = pk_test_51IRd43IjaTNJ14McIRVYpuRqv9mvdfqet3kurr0dJcbJ4chAdBWZf6Hhjq9JzlO89x3d9tJUG1TQSZNrACSFEpDG00SCOwJuGB
