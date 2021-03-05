@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import socket
 from pathlib import Path
+
+hostname, *_, ips = socket.gethostbyname(socket.gethostname())
+
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'allauth',
     'allauth.account',
+    'debug_toolbar',
 
     # Local
     'users.apps.UsersConfig',
@@ -52,6 +58,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +66,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+
+CACHE_MIDDLEWARE_SECONDS = 604800
+
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 ROOT_URLCONF = 'bookstore_project.urls'
 
@@ -180,4 +195,4 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STRIPE_TEST_PUBLISHABLE_KEY = pk_test_51IRd43IjaTNJ14McIRVYpuRqv9mvdfqet3kurr0dJcbJ4chAdBWZf6Hhjq9JzlO89x3d9tJUG1TQSZNrACSFEpDG00SCOwJuGB
+STRIPE_TEST_PUBLISHABLE_KEY = 'pk_test_51IRd43IjaTNJ14McIRVYpuRqv9mvdfqet3kurr0dJcbJ4chAdBWZf6Hhjq9JzlO89x3d9tJUG1TQSZNrACSFEpDG00SCOwJuGB'
